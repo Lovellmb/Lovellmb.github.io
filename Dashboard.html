@@ -1,0 +1,159 @@
+<!doctype  html>
+<html lang="en">
+<meta charset="UTF-8">
+<head>
+<title> Dashboard</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">Weather</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="http://172.17.15.77">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page">Dashboard</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Creators
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="http://172.17.15.77/TMPOwen.html">Owen</a></li>
+            <li><a class="dropdown-item" href="http://172.17.15.77/TMPMax.html">Max</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://172.17.15.77/History.html"">History</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<div class= "container-fluid">
+<div class="form-group row mt-3" id="searchRow">
+     <label id="address" for="addressTextBox" class="col-sm-2 offset-sm-1 col-form-label"> <b>Please Enter Zipcode:</b>  </label><br>
+   <div class="col-sm-6">
+     <input type="text" class="form-control" id="addressTextBox" name="addresses" placeholder="ex: 45056"> <br>
+   </div>
+   <div class="col">
+     <button type="button" id="addressButton" class="btn btn-primary"> Get Forecast! </button>
+   </div>
+</div>
+
+<div class="alert alert-warning" id="zipWarning">
+    <strong>Invalid Zipcode</strong> please enter a valid zipcode
+  </div>
+
+<div id="apiResponse">
+<div class="table-responsive" id="weatherTable">
+<table class="table table-striped table-med">
+ <thead>
+   <tr>
+    <th scope="col" id="DayHead">Day</th>
+    <th scope="col" id="HighHeadW1">
+	High: OpenMeteo 
+    </th>
+    <th scope="col" id="WindHeadW1">
+	Wind Speed: OpenMeteo
+    </th>
+    <th scope="col" id="PreHeadW1">
+	Precipitation Chance: OpenMeteo
+    </th>
+    <th scope="col" id="HighHeadW2">
+	High: Weather.Gov
+    </th>
+    
+    <th scope="col" id="WindHeadW2">
+	Wind Speed: Weather.Gov
+    </th>
+
+    <th scope="col" id="PreHeadW2">
+	Precipitation Chance: Weather.Gov
+    </th>
+
+  </tr>
+ </thead>
+ <tbody>
+  <tr>
+    <td id="Day1">Day1</td>
+    <td id="High1W1"></td>
+    <td id="Wind1W1"></td>
+    <td id="Pre1W1"></td>
+    <td id="High1W2"></td>
+    <td id="Wind1W2"></td>
+    <td id="Pre1W2"></td>
+  </tr>
+  <tr>
+    <td id="Day2">Day2</td>
+    <td id="High2W1"></td>
+    <td id="Wind2W1"></td>
+    <td id="Pre2W1"></td>
+    <td id="High2W2"></td>
+    <td id="Wind2W2"></td>
+    <td id="Pre2W2"></td>
+  </tr>
+  <tr>
+    <td id="Day3">Day3</td>
+    <td id="High3W1"></td>
+    <td id="Wind3W1"></td>
+    <td id="Pre3W1"></td>
+    <td id="High3W2"></td>
+    <td id="Wind3W2"></td>
+    <td id="Pre3W2"></td>
+  </tr>
+  <tr>
+    <td id="Day4">Day4</td>
+    <td id="High4W1"></td>
+    <td id="Wind4W1"></td>
+    <td id="Pre4W1"></td>
+    <td id="High4W2"></td>
+    <td id="Wind4W2"></td>
+    <td id="Pre4W2"></td>
+  </tr>
+  <tr>
+    <td id="Day5">Day5</td>
+    <td id="High5W1"></td>
+    <td id="Wind5W1"></td>
+    <td id="Pre5W1"></td>
+    <td id="High5W2"></td>
+    <td id="Wind5W2"></td>
+    <td id="Pre5W2"></td>
+  </tr>
+  <tr>
+    <td id="Day6">Day6</td>
+    <td id="High6W1"></td>
+    <td id="Wind6W1"></td>
+    <td id="Pre6W1"></td>
+    <td id="High6W2"></td>
+    <td id="Wind6W2"></td>
+    <td id="Pre6W2"></td>
+  </tr>
+  <tr>
+    <td id="Day7">Day7</td>
+    <td id="High7W1"></td>
+    <td id="Wind7W1"></td>
+    <td id="Pre7W1"></td>
+    <td id="High7W2"></td>
+    <td id="Wind7W2"></td>
+    <td id="Pre7W2"></td>
+  </tr>
+ </tbody>
+</table>
+</div>
+<p class="mb-5" id="gptResponse">
+</p>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="data.js"></script>
+</body>
+</html>

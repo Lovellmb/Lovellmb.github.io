@@ -1,0 +1,298 @@
+
+/* general css */
+body {
+background-color: #f0f0f0;
+}
+
+/*Shared CSS for dashboard and history*/
+
+#logFirstRow {
+  border-style: solid;
+}
+
+#timestamp, #request {
+  color: white;
+  font-size: 20px;
+  margin: auto;
+  font-weight: bold;
+
+}
+
+/*style for table images*/
+.weather-icon {
+  width: 30px;
+  height: 30px;
+  margin-right: 0px;
+  vertical-align: middle;
+  opacity: 0.9;
+}
+
+#gptResponse {
+ background-color: #9caab8;
+ padding-left: 7px;
+ padding-bottom: 5px;
+ border: solid;
+}
+
+#centeredContainer{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* css for the home page */
+
+.section-row {
+  padding: 20px;
+  margin: 40px 0;
+  color: inherit;
+}
+
+#overviewRow,
+#forecastRow,
+#historyRow {
+  background-color: transparent;
+}
+
+.card-block {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 25px;
+  border-radius: 12px;
+  background-color: #DDDDDD;
+  text-align: center;
+  line-height: 1.6;
+  display: block;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+.card-block h2 {
+  font-size: 1.8rem;
+  margin-bottom: 12px;
+  font-weight: bold;
+}
+
+.card-block p {
+  margin-bottom: 20px;
+}
+
+.card-block .d-flex {
+  justify-content: center;
+}
+
+.hero-section {
+  background-image: url('https://www.popsci.com/wp-content/uploads/2025/06/how_do_clouds_get_their_shapes.jpg?quality=85');
+  background-size: cover;
+  background-position: center;
+  color: #ffffff;
+  text-align: center;
+  padding: 100px 20px;
+}
+
+.hero-section h1 {
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.hero-section p {
+  font-size: 1.2rem;
+}
+
+
+
+
+
+.cell-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    margin-left: 6px;
+    vertical-align: middle;
+}
+
+td {
+    white-space: nowrap; 
+}
+
+/*css for dashboard*/
+#apiResponse, #zipWarning {
+display: none;
+}
+
+/*css for history page */
+
+#historyLog, #buttonDiv1, #buttonDiv2{
+display: none;
+}
+
+/* Wrapper div for the table */
+#history-table-wrapper {
+    max-width: 100%;       
+    overflow-x: auto;      
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+/* Table styling */
+#historyTable {
+    width: 100%;           
+    border-collapse: collapse;
+    table-layout: fixed;   
+}
+
+/* Header and cells */
+#historyTable th,
+#historyTable td {
+    border: 1px solid #ccc;
+    padding: 8px;
+    text-align: left;
+
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+/* Timestamp column fixed width */
+#historyTable th:first-child,
+#historyTable td:first-child {
+    width: 140px;
+    white-space: nowrap;
+}
+
+/* OpenAI column max width + scroll inside cell */
+#historyTable td:last-child {
+    max-width: 280px;
+    overflow-y: auto;
+}
+
+/* Header style */
+#historyTable th {
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+/* Row striping messes with icon backgrounds*/
+#historyTable tr:nth-child(even) {
+    /* background-color: #fafafa;*/
+}
+
+#historyTable tr:hover {
+    background-color: #e8f0ff;
+}
+#historyTable td img.cell-icon {
+    background: transparent !important;
+}
+
+
+/* ============================
+   Max Page styles
+============================ */
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 18px 0;
+}
+
+.about-card-block {
+  text-align: left;
+  margin: 30px auto;
+  max-width:800px;
+  display:      block;
+  line-height: 1.6;
+  font-size: 1rem;
+ }
+
+.badge {
+  color: #333; 
+  background-color: #f0f0f0; 
+  padding: 8px 10px;
+  border-radius: 999px;
+  background: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  font-size: 0.9rem;
+}
+
+/* header text */
+.about-me-header {
+  text-align: center; 
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 24px 0;
+  color: #0f172a;
+}
+
+/* section container*/
+.about-section {
+  max-width: 900px;      
+  margin: 0 auto 24px;   
+  padding: 0 16px;       
+}
+
+
+.about-section p,
+.about-section ul,
+.about-section ol,
+.about-section h2 {
+  text-align: left;
+}
+
+/* Lists styling */
+.about-section ul {
+  list-style-type: disc;
+  margin: 0 0 16px 20px; /* left margin for bullets */
+}
+
+.about-section ol {
+  list-style-type: decimal;
+  margin: 0 0 16px 20px; /* left margin for numbers */
+}
+
+.about-section li {
+  margin-bottom: 6px;
+  line-height: 1.5;
+}
+
+
+.about-section .card-block {
+  margin-bottom: 20px;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(2,6,23,0.04);
+  background: var(--card-bg);
+}
+@media (max-width: 920px) {
+  p {
+    font-size: 0.95rem;    
+    line-height: 1.4;    
+    margin-bottom: 0.75rem; 
+  }
+}
+@media (max-width: 920px) {
+  .about-me-header {
+    font-size: 1.75rem;
+  }
+}
+
+/*Owen Page styles*/
+#sideBox {
+ background-color: #BBBBBB;
+}
+
+#OwenNamePlate {
+ background-color: #DDDDDD;
+ padding-left: 5px;
+ padding-bottom: 5px;
+}
+
+#OwenProfile {
+ border-style: solid;
+}
+
+
+
+
+
+
+
+

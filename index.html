@@ -1,0 +1,107 @@
+<!doctype  html>
+<html lang="en">
+<head>
+<title> Home </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+<link rel= "stylesheet" href= "styles.css">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+    <a class="navbar-brand">Weather</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://172.17.15.77/Dashboard.html">Dashboard</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Creators
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" href="http://172.17.15.77/TMPOwen.html">Owen</a></li>
+            <li><a class="dropdown-item" href="http://172.17.15.77/TMPMax.html">Max</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="http://172.17.15.77/History.html">History</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+<section class="hero-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1 class="text-black">Forecast For You</h1>
+                <p></p>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="row  m-2" id="overviewRow">
+<section class="card-block rounded" id="overviewBlock">
+  <h2>Welcome to our Website</h2>
+  <p class="text-center">
+    This website was Created by Max Lovell and Owen Ensly as a part of a web apps project for CSE 383. 
+    The dashboard allows users to obtain weather data for the next week by entering a desired zip code to check. 
+    The weather data is fetched from the OpenMeteo and Weather.Gov API's, and is then summarized using openAI. 
+    The Creator pages give brief introductions to the creators and explain what they brought to this project. 
+    The History page allows users to review all previous results and search by a desired date or zip code.
+  </p>
+</section>
+</div>
+<div class="row  m-2" id="forecastRow">
+<section class="card-block rounded" id="forecastBlock">
+  <h2>Get an Accurate Forcast with Data from Two Sources</h2>
+  <p class="text-center">
+   With our website you can find the weekly forcast for any provided zipcode. Our dashboard will display the max temperature, windspeed, 
+   and percipitation chance from not just one but 2 weather APIs. Furthermore, at the bottom of each search you will find a newly generated AI summary 
+   of the data providing all of the info in an easier to read format.
+  </p>
+  <div class="d-flex justify-content-center">
+  <a href="http://172.17.15.77/Dashboard.html" class="btn btn-primary">Try it Out!</a>
+  </div>
+</section>
+</div>
+<div class="row  m-2" id="historyRow">
+<section class="card-block rounded" id="historyBlock">
+  <h2>See all of your Past History</h2>
+  <p class="text-center">
+   Our History page will allow you to see any past forecasts you may have searched. Furthermore you can narrow your search by providing a zipcode or search data (or both!) 
+  </p>
+  <div class="d-flex justify-content-center">
+  <a href="http://172.17.15.77/History.html" class="btn btn-light">See History!</a>
+  </div>
+</section>
+</div>
+<div class="row  m-2" id="creatorRow">
+  <h2 class="text-center">Meet the Creators</h2>
+  <div class="col-sm-4 offset-sm-2">
+  <img src="https://media.licdn.com/dms/image/v2/D5603AQEpmfYy4TfBqg/profile-displayphoto-shrink_400_400/profile-displayphoto-shrink_400_400/0/1714417026305?e=1766620800&v=beta&t=mxPhPm2JVvEaJTmO1_0XAFACBuIEzCm1Xqi-ZAm3few" class="rounded-circle mx-auto d-block img-fluid" alt="Owen Ensley Profile" width="150" height="150">
+  <h3 class="text-center">Owen Ensley</h3>
+   <div class="d-flex justify-content-center">
+    <a href="http://172.17.15.77/TMPOwen.html" class="btn btn-dark">About Page</a>
+   </div>
+  </div>
+  <div class="col-sm-4">
+  <img src="https://lh3.googleusercontent.com/a/ACg8ocJGJX3v5F1hxWTj9-6OjdAUHZ8DyypxoHl5J3NuEP663sUXRUs=s396-c-no" class="rounded-circle mx-auto d-block  img-fluid" alt="Max Lovell Profile" width="150" height="150">
+  <h3 class="text-center">Max Lovell</h3>
+   <div class="d-flex justify-content-center">
+    <a href="http://172.17.15.77/TMPMax.html" class="btn btn-dark">About Page</a>
+   </div>
+  </div>
+  <div class="d-flex justify-content-center">
+  </div>
+</div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+</html>
