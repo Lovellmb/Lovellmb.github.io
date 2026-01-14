@@ -279,6 +279,10 @@ display: none;
   justify-content: center;
 }
 
+#creatorRow a.btn {
+  display: block;
+  margin: 0 auto;
+}
 
 
 
