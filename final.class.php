@@ -192,70 +192,67 @@ class final_rest
         }
   
 
-  public static function openaiproxy($endpoint, $payload) {
-    // 1. Your OpenAI API key
-    // Physically stored in a non-web accessible location
-    //(../password/openai.key)
-    $apiKey = trim(file_get_contents("/var/www/password/api.key"));
-    if (!$apiKey) {
-    	//http_response_code(500);
-    	return json_encode([
-    	'error' => 'OpenAI API key not configured on server'
-  	  ]);
-  }
-  // 2. Build the URL:
-  $endpoint = ltrim($endpoint, '/');
-  $url = "https://api.openai.com/v1/" . $endpoint;
-  // 3. Decode payload (coming in as JSON string) into array
-  $data = json_decode($payload, true);
-  if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
-  	//http_response_code(400);
-  	return json_encode([
-	'error' => 'Invalid JSON in payload',
-	'detail' => json_last_error_msg()
-	]);
-  }
-  // 4. Set up cURL
-  $ch = curl_init($url);
-  $headers = [
-  'Content-Type: application/json',
-  'Authorization: Bearer ' . $apiKey,
-  ];
-  curl_setopt_array($ch, [
-  CURLOPT_POST => true,
-  CURLOPT_HTTPHEADER => $headers,
-  CURLOPT_RETURNTRANSFER => true,
-  CURLOPT_TIMEOUT => 60,
-  CURLOPT_POSTFIELDS => json_encode($data),
-  ]);
-  // 5. Execute the request
-  $responseBody = curl_exec($ch);
-  $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-  $curlError = curl_error($ch);
-  curl_close($ch);
-  // 6. Handle cURL errors
-  if ($responseBody === false) {
-  	//http_response_code(502);
-  	return json_encode([
-  	'error' => 'Error calling OpenAI',
-  	'detail' => $curlError,
-  	]);
-  }
-  // 7. Try to decode OpenAI response; if it fails, return raw string
-  $decoded = json_decode($responseBody, true);
-  if ($decoded === null && json_last_error() !== JSON_ERROR_NONE) {
-  	// Not valid JSON (very unlikely), just pass raw body
-	//http_response_code($httpCode ?: 502);
-	return json_encode([
-	'raw' => $responseBody,
-	'error' => 'Invalid JSON returned from OpenAI',
-	'detail'=> json_last_error_msg(),
-	]);
-  }
-  // 8. Pass through status and JSON from OpenAI
-  //http_response_code($httpCode ?: 200);
-  return $responseBody;
-  }
+  public static function geminiproxy($model, $payload) {
+
+    // 1. Google AI API key
+    $apiKey = "AIzaSyBk36kzwh1ukvVSDUC2TE3hJppenFEJ8Xs";
+
+    // 2. Build Gemini endpoint
+    // Example model: gemini-1.5-flash or gemini-1.5-pro
+    $model = urlencode($model);
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey";
+
+    // 3. Decode payload
+    $data = json_decode($payload, true);
+    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+        return json_encode([
+            'error' => 'Invalid JSON in payload',
+            'detail' => json_last_error_msg()
+        ]);
+    }
+
+    // 4. Set up cURL
+    $ch = curl_init($url);
+    $headers = [
+        'Content-Type: application/json',
+    ];
+
+    curl_setopt_array($ch, [
+        CURLOPT_POST => true,
+        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_TIMEOUT => 60,
+        CURLOPT_POSTFIELDS => json_encode($data),
+    ]);
+
+    // 5. Execute request
+    $responseBody = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    $curlError = curl_error($ch);
+    curl_close($ch);
+
+    // 6. Handle cURL errors
+    if ($responseBody === false) {
+        return json_encode([
+            'error' => 'Error calling Google AI',
+            'detail' => $curlError,
+        ]);
+    }
+
+    // 7. Validate JSON
+    $decoded = json_decode($responseBody, true);
+    if ($decoded === null && json_last_error() !== JSON_ERROR_NONE) {
+        return json_encode([
+            'raw' => $responseBody,
+            'error' => 'Invalid JSON returned from Google AI',
+            'detail' => json_last_error_msg(),
+        ]);
+    }
+
+    // 8. Pass through response
+    return $responseBody;
+}
+
    
 }
 
