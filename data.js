@@ -129,29 +129,43 @@ function displayWeatherGov(data){
         }
 }
 
-function getOpenAI() {
-	console.log("starting ai");
-    $("#gptResponse").html("waiting for ai response <div class='spinner-border spinner-border-sm'></div>");
-    a=$.ajax({
-            url: "final.php/openaiproxy",
-            method: "POST",
-	    data: {
-	    endpoint: "responses",
+function getGemini() {
+    console.log("starting ai");
+    $("#gptResponse").html(
+        "waiting for ai response <div class='spinner-border spinner-border-sm'></div>"
+    );
+
+    $.ajax({
+        url: "final.php/geminiproxy",
+        method: "POST",
+        data: {
+            model: "gemini-1.5-flash",
             payload: JSON.stringify({
-               model: "gpt-5",
-               input: "Summarize the following weather data from open-meteo and weather.gov. First give a summary titled for the current day titled Today's Weather and then give a summary for each day in the upcoming week titled Weekly Forcast. Please mention only the max temperature, wind speed and percipitation chance. Format your response with html so it can be easily inserted into an existing html document. Openmeteo:" + openMeteo + "  Weather.gov: " + WeatherGov
-              })
-            }
-      }).done(function(data) {
-	displayOpenAI(data);
-	addLog(data);
-     }).fail(function(error){
-	console.log("failed");
-	console.log(error);
-
-     });
-
+                contents: [
+                    {
+                        role: "user",
+                        parts: [
+                            {
+                                text:
+                                    "Summarize the following weather data from open-meteo and weather.gov. " +
+                                    "Format your response with html so it can be easily inserted into an existing html document.\n\n" +
+                                    "OpenMeteo:\n" + openMeteo + "\n\n" +
+                                    "Weather.gov:\n" + WeatherGov
+                            }
+                        ]
+                    }
+                ]
+            })
+        }
+    }).done(function (data) {
+        displayGemini(data);
+        addLog(data);
+    }).fail(function (error) {
+        console.log("failed");
+        console.log(error);
+    });
 }
+
 
 function displayOpenAI(data){
      if (data.output != null){
