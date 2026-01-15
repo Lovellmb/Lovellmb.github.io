@@ -195,7 +195,7 @@ class final_rest
   public static function geminiproxy($model, $payload) {
 
     // 1. Google AI API key
-    $apiKey = "AIzaSyBk36kzwh1ukvVSDUC2TE3hJppenFEJ8Xs";
+    $apiKey = API_KEY;
 
     // 2. Build Gemini endpoint
     // Example model: gemini-1.5-flash or gemini-1.5-pro
