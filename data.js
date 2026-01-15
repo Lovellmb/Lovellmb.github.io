@@ -3,7 +3,7 @@ var lat = 0;
 var long = 0;
 var timezone ="";
 var openMeteo = "";
-var openAI = "";
+var Gemini = "";
 var WeatherGov = "";
 var min = 0;
 var zip = "";
@@ -106,7 +106,7 @@ function getMapCoords(la, lo) {
       }).done(function(data) {
 	displayWeatherGov(data);
         WeatherGov = JSON.stringify(data);
-	getOpenAI();
+	getGemini();
 }).fail(function(error){
 
      });
@@ -167,7 +167,7 @@ function getGemini() {
 }
 
 
-function displayOpenAI(data) {
+function displayGemini(data) {
     try {
         let text =
             data?.candidates?.[0]?.content?.parts?.[0]?.text;
@@ -186,7 +186,7 @@ function displayOpenAI(data) {
 }
 
 
-function addLog(openAi) {
+function addLog(Gemini) {
   a=$.ajax({
             url: "final.php/addLog",
             method: "POST",
@@ -194,7 +194,7 @@ function addLog(openAi) {
             request: zip,
 	    openmeteo: openMeteo,
             weathergov: WeatherGov,
-            openai: JSON.stringify(openAi)
+            Gemini: JSON.stringify(Gemini)
             }
       })
 }
@@ -214,7 +214,7 @@ console.log("started getLog");
         $("#request").text("Request: " + data.result[index].request);
         displayOpenMeteo(JSON.parse(data.result[index].openmeteo));
         displayWeatherGov(JSON.parse(data.result[index].weathergov));
-        displayOpenAI(JSON.parse(data.result[index].openai));
+        displayGemini(JSON.parse(data.result[index].Gemini));
 	}
 	}).fail(function(error){
 
