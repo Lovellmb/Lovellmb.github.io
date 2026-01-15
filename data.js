@@ -167,17 +167,24 @@ function getGemini() {
 }
 
 
-function displayOpenAI(data){
-     if (data.output != null){
-        openAI = data.output[1].content[0].text;
-        console.log(data);
-        console.log("done");
-        $("#gptResponse").html(openAI);
-        } else {
-        $("#gptResponse").html('<p>"Ai summary unavailbale at this time"</p>');
-        }
+function displayOpenAI(data) {
+    try {
+        let text =
+            data?.candidates?.[0]?.content?.parts?.[0]?.text;
 
+        if (text) {
+            console.log(data);
+            console.log("done");
+            $("#gptResponse").html(text);
+        } else {
+            $("#gptResponse").html('<p>"AI summary unavailable at this time"</p>');
+        }
+    } catch (e) {
+        console.error(e);
+        $("#gptResponse").html('<p>"AI summary unavailable at this time"</p>');
+    }
 }
+
 
 function addLog(openAi) {
   a=$.ajax({
