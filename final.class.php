@@ -1,258 +1,93 @@
-<?php 
+<?php
+
 class final_rest
 {
 
-
-
-/**
- * @api  /api/v1/setTemp/
- * @apiName setTemp
- * @apiDescription Add remote temperature measurement
- *
- * @apiParam {string} location
- * @apiParam {String} sensor
- * @apiParam {double} value
- *
- * @apiSuccess {Integer} status
- * @apiSuccess {string} message
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":0,
- *              "message": ""
- *     }
- *
- * @apiError Invalid data types
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":1,
- *              "message":"Error Message"
- *     }
- *
- */
-	public static function setTemp ($location, $sensor, $value)
-
-	{
-		if (!is_numeric($value)) {
-			$retData["status"]=1;
-			$retData["message"]="'$value' is not numeric";
-		}
-		else {
-			try {
-				EXEC_SQL("insert into temperature (location, sensor, value, date) values (?,?,?,CURRENT_TIMESTAMP)",$location, $sensor, $value);
-				$retData["status"]=0;
-				$retData["message"]="insert of '$value' for location: '$location' and sensor '$sensor' accepted";
-			}
-			catch  (Exception $e) {
-				$retData["status"]=1;
-				$retData["message"]=$e->getMessage();
-			}
-		}
-
-		return json_encode ($retData);
-	}
-
-
-/**
- * @api  /api/v1/getLevel/
- * @apiName getLevel
- * @apiDescription Return all level data from database
- *
- * @apiSuccess {Integer} status
- * @apiSuccess {string} message
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":0,
- *              "message": ""
- *              "result": [
- *                { 
- *                  levelID: 1,
- *                  description: "",
- *                  prompt: ""
- *              ]
- *     }
- *
- * @apiError Invalid data types
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":1,
- *              "message":"Error Message"
- *     }
- *
- */
-  public static function getLevel () {
-		return json_encode ($retData);
-  }
-
-/**
- * @api  /api/v1/addLog/
- * @apiName addLog
- * @apiDescription Add record to logfile
- *
- * @apiParam {string} level
- * @apiParam {String} systemPrompt
- * @apiParam {String} userPrompt
- * @apiParam {string} chatResponse
- * @apiParam {Integer} inputTokens
- * @apiParam {Integer} outputTokens
- *
- * @apiSuccess {Integer} status
- * @apiSuccess {string} message
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":0,
- *              "message": ""
- *     }
- *
- * @apiError Invalid data types
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":1,
- *              "message":"Error Message"
- *     }
- *
- */  
-	public static function addlog ($request, $weathergov, $openmeteo, $openai)
-
-        {
-       try {
-                                EXEC_SQL("insert into transactions (request, weathergov, openmeteo, openai) values (?,?,?,?)", $request, $weathergov, $openmeteo, $openai);
-                                $retData["status"]=0;
-                                $retData["message"] = "Inserted into transactions: request='$request'";
-                        }
-                        catch  (Exception $e) {
-                                $retData["status"]=1;
-                                $retData["message"]=$e->getMessage();
-                        }
-
-                return json_encode ($retData);
-        }
-/**
- * @api  /api/v1/getLog/
- * @apiName getLog
- * @apiDescription Retrieve Log Records
- *
- * @apiParam {string} date
- * @apiParam {String} numRecords
- *
- * @apiSuccess {Integer} status
- * @apiSuccess {string} message
- *
- * @apiSuccessExample Success-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":0,
- *              "message": ""
- *              "result": [
- *                { 
- *                  timeStamp: "YYYY-MM-DD HH:MM:SS",
- *                  level: "",
- *                  systemPrompt: "",
- *                  userPrompt: "",
- *                  chatResponse: "",
- *                  inputTokens: 0,
- *                  outputTokens: 0
- *              ]
- *     }
- *
- * @apiError Invalid data types
- *
- * @apiErrorExample Error-Response:
- *     HTTP/1.1 200 OK
- *     {
- *              "status":1,
- *              "message":"Error Message"
- *     }
- *
- */
-  public static function getLog () 
+/* -------------------- ADD LOG -------------------- */
+public static function addlog ($request, $weathergov, $openmeteo, $openai)
 {
-                        try {
-				$retData["message"] = "Retrieved from from transactions:";
-                                $retData["result"]=GET_SQL("select timestamp, request, weathergov, openmeteo, openai from transactions");
-                                $retData["status"]=0;
-                        }
-                        catch  (Exception $e) {
-                                $retData["status"]=1;
-                                $retData["message"]=$e->getMessage();
-                        }
+    try {
+        EXEC_SQL(
+            "insert into transactions (request, weathergov, openmeteo, openai)
+             values (?,?,?,?)",
+            $request, $weathergov, $openmeteo, $openai
+        );
 
-                return json_encode ($retData);
-        }
-  
+        $retData["status"]  = 0;
+        $retData["message"] = "Inserted into transactions: request='$request'";
+    }
+    catch (Exception $e) {
+        $retData["status"]  = 1;
+        $retData["message"] = $e->getMessage();
+    }
 
-  public static function geminiproxy($model, $payload) {
+    return json_encode($retData);
+}
 
-    // 1. Google AI API key
+
+/* -------------------- GET LOG -------------------- */
+public static function getlog ()
+{
+    try {
+        $retData["status"]  = 0;
+        $retData["message"] = "Retrieved from transactions";
+        $retData["result"]  = GET_SQL(
+            "select timestamp, request, weathergov, openmeteo, openai
+             from transactions
+             order by timestamp desc"
+        );
+    }
+    catch (Exception $e) {
+        $retData["status"]  = 1;
+        $retData["message"] = $e->getMessage();
+    }
+
+    return json_encode($retData);
+}
+
+
+/* -------------------- GEMINI PROXY -------------------- */
+public static function geminiproxy($model, $payload)
+{
+    
     $apiKey = getenv('API_KEY');
 
-    // 2. Build Gemini endpoint
-    // Example model: gemini-1.5-flash or gemini-1.5-pro
-    $model = urlencode($model);
-    $url = "https://generativelanguage.googleapis.com/v1beta/models/$model:generateContent?key=$apiKey";
-
-    // 3. Decode payload
-    $data = json_decode($payload, true);
-    if ($data === null && json_last_error() !== JSON_ERROR_NONE) {
+    if (!$apiKey) {
         return json_encode([
-            'error' => 'Invalid JSON in payload',
-            'detail' => json_last_error_msg()
+            'error' => 'Google API key not configured'
         ]);
     }
 
-    // 4. Set up cURL
-    $ch = curl_init($url);
-    $headers = [
-        'Content-Type: application/json',
-    ];
+    // Build Gemini endpoint
+    $model = urlencode($model);
+    $url = "https://generativelanguage.googleapis.com/v1beta/models/"
+         . $model
+         . ":generateContent?key=" . $apiKey;
 
+    // cURL
+    $ch = curl_init($url);
     curl_setopt_array($ch, [
-        CURLOPT_POST => true,
-        CURLOPT_HTTPHEADER => $headers,
+        CURLOPT_POST           => true,
+        CURLOPT_HTTPHEADER     => ['Content-Type: application/json'],
         CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_TIMEOUT => 60,
-        CURLOPT_POSTFIELDS => json_encode($data),
+        CURLOPT_TIMEOUT        => 60,
+      
+        CURLOPT_POSTFIELDS     => $payload
     ]);
 
-    // 5. Execute request
     $responseBody = curl_exec($ch);
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    $curlError = curl_error($ch);
+    $curlError    = curl_error($ch);
     curl_close($ch);
 
-    // 6. Handle cURL errors
     if ($responseBody === false) {
         return json_encode([
-            'error' => 'Error calling Google AI',
-            'detail' => $curlError,
+            'error'  => 'Error calling Google AI',
+            'detail' => $curlError
         ]);
     }
 
-    // 7. Validate JSON
-    $decoded = json_decode($responseBody, true);
-    if ($decoded === null && json_last_error() !== JSON_ERROR_NONE) {
-        return json_encode([
-            'raw' => $responseBody,
-            'error' => 'Invalid JSON returned from Google AI',
-            'detail' => json_last_error_msg(),
-        ]);
-    }
-
-    // 8. Pass through response
+    // Pass-through Gemini response
     return $responseBody;
 }
 
-   
 }
-
