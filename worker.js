@@ -8,6 +8,7 @@ function corsHeaders() {
   };
 }
 
+
 async function handleRequest(request) {
   if (request.method === "OPTIONS") {
     return new Response(null, {
@@ -39,24 +40,44 @@ async function handleRequest(request) {
 async function handleGemini(request) {
   const body = await request.json();
 
-  const response = await fetch(
-    "https://generativelanguage.googleapis.com/v1beta/models/gpt-4o-mini:generateContent?key=" +
-      GEMINI_API_KEY,
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    }
-  );
+  if (!GEMINI_API_KEY) {
+    return new Response(
+      JSON.stringify({ error: "GEMINI_API_KEY not configured" }),
+      {
+        status: 500,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      }
+    );
+  }
 
-  const data = await response.json();
+  try {
+    const response = await fetch(
+      "https://generativelanguage.googleapis.com/v1beta/models/gpt-4o-mini:generateContent?key=" +
+        GEMINI_API_KEY,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(body),
+      }
+    );
 
-  return new Response(JSON.stringify(data), {
-    status: response.status,
-    headers: { ...corsHeaders(), "Content-Type": "application/json" },
-  });
+    const data = await response.json();
+
+    return new Response(JSON.stringify(data), {
+      status: response.status,
+      headers: { ...corsHeaders(), "Content-Type": "application/json" },
+    });
+  } catch (err) {
+    return new Response(
+      JSON.stringify({ error: err.message }),
+      {
+        status: 500,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      }
+    );
+  }
 }
 
 async function handleAddLog(request) {
@@ -87,8 +108,6 @@ async function handleGetLog(request) {
   });
 }
 
-export default {
-  async fetch(request) {
-    return handleRequest(request);
-  },
-};
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
