@@ -1,10 +1,5 @@
-addEventListener("fetch", (event) => {
-  event.respondWith(handleRequest(event.request));
-});
-
 const ALLOWED_ORIGIN = "https://lovellmb.github.io";
 
-// --- CORS headers
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
@@ -41,7 +36,6 @@ async function handleRequest(request) {
   });
 }
 
-// --- GEMINI
 async function handleGemini(request) {
   const body = await request.json();
 
@@ -65,8 +59,6 @@ async function handleGemini(request) {
   });
 }
 
-// --- KV Storage for logs
-// Make sure you bind a KV namespace in wrangler.toml as "LOGS"
 async function handleAddLog(request) {
   const data = await request.json();
   const id = crypto.randomUUID();
@@ -94,3 +86,9 @@ async function handleGetLog(request) {
     headers: { ...corsHeaders(), "Content-Type": "application/json" },
   });
 }
+
+export default {
+  async fetch(request) {
+    return handleRequest(request);
+  },
+};
