@@ -136,27 +136,25 @@ function getGemini() {
     );
 
     $.ajax({
-        url: "final.php/geminiproxy",
+        url: "https://weathersite.lovellmb.workers.dev/",
         method: "POST",
-        data: {
-            model: "gemini-1.5-flash",
-            payload: JSON.stringify({
-                contents: [
-                    {
-                        role: "user",
-                        parts: [
-                            {
-                                text:
-                                    "Summarize the following weather data from open-meteo and weather.gov. " +
-                                    "Format your response with html so it can be easily inserted into an existing html document.\n\n" +
-                                    "OpenMeteo:\n" + openMeteo + "\n\n" +
-                                    "Weather.gov:\n" + WeatherGov
-                            }
-                        ]
-                    }
-                ]
-            })
-        }
+        contentType: "application/json",
+        data: JSON.stringify({
+            contents: [
+                {
+                    role: "user",
+                    parts: [
+                        {
+                            text:
+                                "Summarize the following weather data from open-meteo and weather.gov. " +
+                                "Format your response with html so it can be easily inserted into an existing html document.\n\n" +
+                                "OpenMeteo:\n" + openMeteo + "\n\n" +
+                                "Weather.gov:\n" + WeatherGov
+                        }
+                    ]
+                }
+            ]
+        })
     }).done(function (data) {
         displayGemini(data);
         addLog(data);
