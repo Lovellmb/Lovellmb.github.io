@@ -1,50 +1,96 @@
-export default {
-  async fetch(request, env) {
+addEventListener("fetch", (event) => {
+  event.respondWith(handleRequest(event.request));
+});
 
-    // CORS: handle preflight
-    if (request.method === "OPTIONS") {
-      return new Response(null, {
-        headers: {
-          "Access-Control-Allow-Origin": "https://lovellmb.github.io",
-          "Access-Control-Allow-Methods": "POST, OPTIONS",
-          "Access-Control-Allow-Headers": "Content-Type",
-        },
-      });
-    }
+const ALLOWED_ORIGIN = "https://lovellmb.github.io";
 
-    // Only allow POST
-    if (request.method !== "POST") {
-      return new Response("Method not allowed", { status: 405 });
-    }
+// --- CORS headers
+function corsHeaders() {
+  return {
+    "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    "Access-Control-Allow-Headers": "Content-Type",
+  };
+}
 
-    const apiKey = env.GEMINI_API_KEY;
-    if (!apiKey) {
-      return new Response(
-        JSON.stringify({ error: "Missing API key" }),
-        { status: 500, headers: { "Content-Type": "application/json" } }
-      );
-    }
-
-    const body = await request.json();
-
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + apiKey,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(body),
-      }
-    );
-
-    const text = await response.text();
-
-    // Return response with CORS headers
-    return new Response(text, {
-      status: response.status,
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "https://lovellmb.github.io",
-      },
+async function handleRequest(request) {
+  if (request.method === "OPTIONS") {
+    return new Response(null, {
+      status: 204,
+      headers: corsHeaders(),
     });
   }
-};
+
+  const url = new URL(request.url);
+
+  if (url.pathname === "/gemini" && request.method === "POST") {
+    return handleGemini(request);
+  }
+
+  if (url.pathname === "/addLog" && request.method === "POST") {
+    return handleAddLog(request);
+  }
+
+  if (url.pathname === "/getLog" && request.method === "GET") {
+    return handleGetLog(request);
+  }
+
+  return new Response("Not found", {
+    status: 404,
+    headers: corsHeaders(),
+  });
+}
+
+// --- GEMINI
+async function handleGemini(request) {
+  const body = await request.json();
+
+  const response = await fetch(
+    "https://generativelanguage.googleapis.com/v1beta/models/gpt-4o-mini:generateContent?key=" +
+      GEMINI_API_KEY,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(body),
+    }
+  );
+
+  const data = await response.json();
+
+  return new Response(JSON.stringify(data), {
+    status: response.status,
+    headers: { ...corsHeaders(), "Content-Type": "application/json" },
+  });
+}
+
+// --- KV Storage for logs
+// Make sure you bind a KV namespace in wrangler.toml as "LOGS"
+async function handleAddLog(request) {
+  const data = await request.json();
+  const id = crypto.randomUUID();
+  const timestamp = new Date().toISOString();
+
+  const record = { id, timestamp, ...data };
+
+  await LOGS.put(id, JSON.stringify(record));
+
+  return new Response(JSON.stringify({ status: "ok", id }), {
+    headers: { ...corsHeaders(), "Content-Type": "application/json" },
+  });
+}
+
+async function handleGetLog(request) {
+  const list = await LOGS.list({ limit: 50 });
+  const results = [];
+
+  for (const item of list.keys) {
+    const value = await LOGS.get(item.name);
+    results.push(JSON.parse(value));
+  }
+
+  return new Response(JSON.stringify({ status: "ok", result: results }), {
+    headers: { ...corsHeaders(), "Content-Type": "application/json" },
+  });
+}
