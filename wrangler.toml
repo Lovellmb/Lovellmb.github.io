@@ -1,3 +1,4 @@
-name = "gemini-proxy"
+name = "weathersite"
 main = "worker.js"
-compatibility_date = "2025-01-01"
+compatibility_date = "2026-01-01"
+type = "esm"
