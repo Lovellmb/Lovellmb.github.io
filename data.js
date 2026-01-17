@@ -198,14 +198,7 @@ function getGemini() {
   console.log(xhr.responseText);   // THIS will show the error
 });
 
-    .done(function (data) {
-      displayGemini(data);
-      addLog(data);
-    })
-    .fail(function (error) {
-      console.log("failed");
-      console.log(error);
-    });
+
 }
 
 function displayGemini(data) {
