@@ -180,6 +180,7 @@ function getGemini() {
   url: "https://weathersite.lovellmb.workers.dev/gemini",
   method: "POST",
   contentType: "application/json",
+  processData: false,  // <-- IMPORTANT
   data: JSON.stringify({
     prompt:
       "Summarize the following weather data from open-meteo and weather.gov. " +
@@ -191,6 +192,12 @@ function getGemini() {
       WeatherGov,
   }),
 })
+.fail(function (xhr) {
+  console.log("failed");
+  console.log(xhr.status);         // 400
+  console.log(xhr.responseText);   // THIS will show the error
+});
+
     .done(function (data) {
       displayGemini(data);
       addLog(data);
