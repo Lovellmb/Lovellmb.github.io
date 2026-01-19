@@ -1,6 +1,9 @@
 
 <p align="center">
-  <h1>Hello, I'm Max!</h1>
+  <header>
+    <h1>Hello, I'm Max!</h1>
+  </header>
+  
 </p>
 <p align="center">
 <img width="124" height="124" alt="image" src="https://github.com/user-attachments/assets/7260c562-8b5c-46bb-b89b-9e2ca842f55a" />
