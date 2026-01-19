@@ -1,55 +1,34 @@
-# 👋 Hi, I'm Max!
+# Hello, I'm Max!
 
-Welcome to my GitHub profile!  
-I'm a developer who enjoys building things for the web, experimenting with game scripting, and learning how systems work under the hood.
+Writing code. Solving problems. Learning continuously.
 
----
-
-## 🚀 About Me
-- 💻 I work with **JavaScript, PHP, HTML, CSS**
-- 🎮 Interested in **game development & scripting** (SRPG Studio, custom plugins)
-- 🌐 Experience with **web hosting, APIs, and Cloudflare**
-- 📚 Always learning something new
 
 ---
 
-## 🛠️ Tech Stack
-**Languages**
-- JavaScript
-- PHP
-- HTML / CSS
+**Langues and Skills**
+Java, JavaScript, Python, C++, HTML, CSS, SQL, Azure, Power BI, PHP, SAS, Linux
 
 **Tools & Platforms**
-- GitHub Pages
-- Cloudflare Workers
-- Linux / Apache
-- VS Code
-
----
-
-## 📂 Featured Projects
-### 🌦️ Weather Dashboard
-A web-based weather app using external APIs and client-side JavaScript.  
-🔗 [View Repository](https://github.com/username/weather-dashboard)
-
-### ⚔️ SRPG Studio Plugins
-Custom scripts and plugins for SRPG Studio to extend skills, events, and triggers.  
-🔗 [View Repository](https://github.com/username/srpg-plugins)
-
+<p>
+  <img alt="git" src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" />
+  <img alt="github actions" src="https://img.shields.io/badge/-Github_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white" />
+  <img alt="Azure" src=https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white" />
+  <img alt="Eclipse" src=https://img.shields.io/badge/Eclipse-FE7A16.svg?logo=Eclipse&logoColor=white" />
+  <img alt="VS Code" src=https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white" />
+  <img alt="Tableau" src=https://custom-icon-badges.demolab.com/badge/Tableau-0176D3?logo=tableau&logoColor=fff" />
+  <img alt="Power BI" src=https://custom-icon-badges.demolab.com/badge/Power%20BI-F1C912?logo=power-bi&logoColor=fff" />
 ---
 
 ## 📊 GitHub Stats
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=username&show_icons=true&theme=dark)
+![GitHub Stats](https://github-readme-stats.vercel.app/api?username=lovellmb&show_icons=true&theme=dark)
 
-![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=username&layout=compact&theme=dark)
-
----
-
-## 📫 Connect With Me
-- 🌐 Website: https://example.com
-- 💬 Discord: yourname#1234
-- 📧 Email: you@example.com
+![Top Languages](https://github-readme-stats.vercel.app/api/top-langs/?username=lovellmb&layout=compact&theme=dark)
 
 ---
 
-⭐️ *Thanks for stopping by! Feel free to explore my repositories or reach out.*
+## Contact Me
+- Email: Lovellmb@miamioh.edu
+- Linkedin: https://www.linkedin.com/in/maxblovell/
+---
+
+ *Thanks for stopping by. Feel free to explore my repositories or reach out.*
