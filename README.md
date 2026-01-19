@@ -13,7 +13,7 @@ Java, JavaScript, Python, C++, HTML, CSS, SQL, Azure, Power BI, PHP, SAS, Linux
   <img alt="git" src="https://img.shields.io/badge/-Git-F05032?style=flat-square&logo=git&logoColor=white" />
   <img alt="github actions" src="https://img.shields.io/badge/-Github_Actions-2088FF?style=flat-square&logo=github-actions&logoColor=white" />
   <img alt="Azure" src=https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white" />
-  <img alt="Eclipse" src=https://img.shields.io/badge/Eclipse-FE7A16.svg?logo=Eclipse&logoColor=white" />
+  <img alt="Eclipse" src="https://img.shields.io/badge/Eclipse-FE7A16.svg?logo=Eclipse&logoColor=white" />
   <img alt="VS Code" src=https://custom-icon-badges.demolab.com/badge/Visual%20Studio%20Code-0078d7.svg?logo=vsc&logoColor=white" />
   <img alt="Tableau" src=https://custom-icon-badges.demolab.com/badge/Tableau-0176D3?logo=tableau&logoColor=fff" />
   <img alt="Power BI" src=https://custom-icon-badges.demolab.com/badge/Power%20BI-F1C912?logo=power-bi&logoColor=fff" />
