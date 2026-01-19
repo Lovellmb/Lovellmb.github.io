@@ -7,7 +7,7 @@
 </p>
 
 <p align="center">
-Writing code. Solving problems. Learning continuously. 
+<b>Writing code. Solving problems. Learning continuously.</b> 
 </p>
 
 
