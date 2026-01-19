@@ -6,7 +6,7 @@ Writing code. Solving problems. Learning continuously.
 ---
 
 **Langues and Skills**
-Java, JavaScript, Python, C++, HTML, CSS, SQL, Azure, Power BI, PHP, SAS, Linux
+**Java, JavaScript, Python, C++, HTML, CSS, SQL, PHP, SAS, Linux**
 
 **Tools & Platforms**
 <p>
