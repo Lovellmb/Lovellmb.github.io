@@ -1,4 +1,4 @@
-# Hello, I'm Max! <img width="1024" height="1024" alt="image" src="https://github.com/user-attachments/assets/7260c562-8b5c-46bb-b89b-9e2ca842f55a" />
+# Hello, I'm Max! <img width="224" height="224" alt="image" src="https://github.com/user-attachments/assets/7260c562-8b5c-46bb-b89b-9e2ca842f55a" />
 
 Writing code. Solving problems. Learning continuously. 
 
